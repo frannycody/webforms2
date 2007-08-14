@@ -1,0 +1,129 @@
+#summary Log of changes to the implementation.
+#labels Featured
+
+==0.5 (initial release)==
+ *  data attribute for select and form elements
+ * Extensions to the input element
+   * input types: datetime, datetime-local, date, month, week, time, number, range, email, and url
+   * min, max, and step attributes
+ * Ranges for all form controls besides file input
+ * Precision: step attribute
+ * The maxlength attribute applies to text, password, url, and email input types, and textarea elements. In particular, it does not apply to the date-related, time-related, and numeric control types.
+ * For the text, password, email, and url types of the input element, and for the textarea element, the pattern attribute specifies a pattern that the control value must match.
+ * Form controls can have the required attribute specified, to indicate that the user must enter a value into the form control before submitting the form.
+ * Any form control (except hidden and output controls) can have an autofocus attribute specified.
+ * The repetition model for repeating form controls
+ * Form validation
+ * Successful form controls
+ * Fetching data from external resources
+   * Filling select elements
+   * Seeding a form with initial values
+ * Validation APIs
+ * Repetition interfaces
+
+=Repetition Model=
+The following log refers to releases of the standalone repetition model [http://code.google.com/p/repetitionmodel/ implementation] which has been incorporated into this Web Forms 2.0 project.
+
+==0.8.4+ (future)==
+ # Fix MSIE memory leaks.
+ # Fix the populating of `forms[n].templateElements`.
+ # Try to enable support for bfcache so that the repetition blocks are not erased when the page is re-shone. See [http://developer.mozilla.org/en/docs/Using_Firefox_1.5_caching Using Firefox 1.5 caching].
+
+==0.8.3.1 (upcoming in Web Forms 2.0 implementation)==
+ # This WF2 Repetition Model implementation is being superseded by a full [http://code.google.com/p/webforms2/ Web Forms 2.0 implementation]. _The code appearing in this project is now deprecated._
+ # Moved firing of `moved` event to after all of the movement code is fired.
+ # Made call to `window.onload` for initialization a last resort.
+ # Fixed number of repetition blocks added to be set to the value of `repeat-start`, not subtracting the number of hard-coded blocks. Error found through [http://tc.labs.opera.com/html/repetition/movement/003.htm move-down simple test (part two)].
+ # Fixed bug where MSIE was not correctly converting repetition buttons specified with INPUT elements into BUTTON elements.
+ # Prevented user-supplied repetition event handlers from aborting the execution of the repetition behavior by triggering runtime errors.
+ # Moved custom `cloneNode` algorithm out of the `addRepetitionBlock` subroutine.
+ # Removed the globally applied Gecko JS 1.6 implementation of `Array.some`.
+ # New Greasemonkey script to enable behavior on any site.
+ # Enabled the script to fire immediately if it determines that the DOM has already been loaded. This enables including the script right before the closing `body` tag and it enables including the script via Greasemonkey.
+
+==0.8.3 (2007-05-16)==
+ # Reduced file size of by ~12% by consolidating constructors and handlers for repetition buttons so that the code would not be repeated, and by reducing the amount of code needed to implement the extension for defining repetition event handlers by HTML attributes.
+ # Removed faulty implementation of `form.templateElements`.
+ # Added default labels for repetition buttons when the user provides none.
+ # Enabled the option to use INPUT elements as repetition buttons by substituting them for BUTTON elements.
+ # Improved handling of onclick handlers on repetition buttons.
+ # Added XPath support for DOM queries in supporting browsers.
+ # Removed `__getElementsByProperty`, and replaced call to it with a call to the XPath enabled `__getElementsByNameAndAttribute`.
+ # Checked for memory leaks in MSIE and found two; however, I was not able to remove them.
+ # Updated [http://weston.ruter.net/projects/repetition-model/testsuite/005.html test case 5] to show contents of style attribute when replacement is successful.
+ # In [http://weston.ruter.net/projects/repetition-model/testsuite/009.html test case 9], added repetition block indexes to each row to assist in keeping track of the changes.
+
+==0.8.2.2 (2007-03-28)==
+ # Improved handling of `style` attribute so that a repetition index appearing within a CSS `background-image` property will be correctly replaced with the correct value. For example: 
+{{{
+style='background-image:url(image[tmpl].png)'
+                                 \/
+style='background-image:url(image1.png)'
+}}}
+ # Added [http://weston.ruter.net/projects/repetition-model/testsuite/013.html test case 13] to verify this improvement and also to demonstrate repetition model-driven content in nested repetition templates.
+
+==0.8.2.1 (2007-03-27)==
+ # Fixed minor logic bug where `removed` events were being fired before the removed block had been removed from `repetitionBlocks`.
+ # Added [http://weston.ruter.net/projects/repetition-model/testsuite/012.html test case 12] to verify the previous fix.
+
+==0.8.2 (2007-03-23)==
+ # Fixed the ability to cancel the default action of a repetition behavior. If a user sets  the `onclick` handler of a repetition button (`add`, `remove`, `move-up`, `move-down`) via either an HTML attribute or a DOM property, and if this handler returns false, then the button's respective behavior will not be executed. Since the `onclick` handler may be fired before the repetition behavior is able get the handler's return value, an ad hoc `returnValue` property should be set on the button in question. Assigning DOM Level 2 Event handlers or MSIE Event handlers which cancel the default action are not yet supported.
+ # Updated [http://weston.ruter.net/projects/repetition-model/testsuite/004.html test case 4] to demonstrate and test this functionality.
+
+==0.8.1 (2007-01-24)==
+ # Fixed `moveRepetitionBlock` algorithm so that `move-up` and `move-down` buttons are disabled if the repetition block could not be moved any higher according to *the algorithm*.
+ # Fixed step 5 of `moveRepetitionBlock` algorithm so that `insertBefore` is called on the *current block's* parent node, not on the current target.
+ # Fixed MSIE error raised when using [http://www.prototypejs.org/ Prototype] with Repetition Model (added check to see if `Element.prototype` was defined as well as `window.Element`)
+ # Revised the subroutine that enables and disables the movement buttons. This subroutine makes use of `Array.some` defined by JavaScript 1.5; if it does not exist, then the function is added to the `Array` prototype.
+ # Replaced `cssQuery` with smaller and lighter-weight specialized DOM query functions.
+ # Disabled Packer's encoding option in the creation of the the packed version. The encoding algorithm somehow caused problems with MSIE's `onmove` handler.
+ # Ensured that template form controls are not successful. When initializing, all controls within the template are disabled and then subsequently enabled when the template is cloned into a block.
+ # Allowed authors to disable form fields within the template element so that when they are cloned they remain disabled in the blocks. Note: due to a Firefox issue, documented in [http://code.google.com/p/repetitionmodel/issues/detail?id=9 issue #9], authors must include a class name of "disabled" on all form fields in addition to setting their `disabled` attribute. For example:
+{{{
+  <input type="text" name="field[i]" disabled="disabled" class="disabled" />
+}}}
+
+==0.8 (2007-01-20)==
+ # Streamlined `__createElementWithName` with code from [http://www.easy-reader.net/archives/2005/09/02/death-to-bad-dom-implementations/#comment-444 Anthony Lieuallen]
+ # Renamed methods on `RepetitionElement` interface (removed erroneous underscore from names)
+ # Added semicolons to all inline functions so that Packer would correctly function
+ # Added HTML attribute event handler support for Opera
+ # _New issue: Discovered that style attributes must be processed specially._ See [http://code.google.com/p/repetitionmodel/issues/detail?id=7 issue #7].
+ # The use of an external file to emulate `DOMContentLoaded` has been reinstated. See [http://code.google.com/p/repetitionmodel/issues/detail?id=3 issue #9].
+ # Focus now remains on a move button when it is clicked and its containing block is moved.
+ # Tested in Firefox versions 1.0.8 and 1.5.0.9
+ # Made fixes for Firefox 1.0 (including fixing typos to the DOM Level 2 event fallbacks)
+ # Updated `repetition-mode-wrapper.js` so that it would function in MSIE (requires `document.write`)
+
+==0.8 beta (2007-01-12)==
+ # Migrated code hosting from SourceForge over to Google Code.
+ # Implemented the traditional event model for browsers which natively support the repetition model and which support `addEventListener` (i.e. Opera). This permits Ben Nolan's [http://bennolan.com/behaviour/ Behaviour] library to be used with the events fired by this repetition model implementation: repetition model events may now be handled by browsers which do not support `addEventListener` (i.e. MSIE); to do so, one may set `onadd`, `onremove`, `onmove` properties of a repetition template element, or one may set the HTML attributes of the same names on a repetition template's opening tag.
+ # Included compressed version (repetition-model-p.js) of the main script via Dean Edward's Packer.
+ # ~~For the MSIE-substitute for `DOMContentLoaded`, eliminated the need for separate code while under a HTTPS connection and thus eliminating the need for MSIE's deferred `repetition-model-init.js`. Removing `document.write` from being used in the substitute code apparently resolved the issue.~~ The use of an external file to emulate `DOMContentLoaded` has been reinstated. See [http://code.google.com/p/repetitionmodel/issues/detail?id=3 issue #9].
+ # Allowed `onclick` handlers on the repetition model buttons. Accomplished by using `addEventListener`/`attachEvent` instead of setting the `onclick` property. 
+ # Enabled the possibility of preventing the default action of a repetition control button of being carried out. To do so, a button's `onclick` handler (will not work using `addEventListener` or `attachEvent`) must not just return `false` but must set a `returnValue` property on the button. So when desiring to cancel the default action, one may terminate an onclick handler with: `return this.returnValue = false`. 
+ # Implemented requirement that "Repetition blocks without a `repeat-template` attribute are associated with their first following sibling that is a repetition template, if there is one."
+ # Implemented requirement that `remove`, `move-up`, and `move-down` buttons be automatically disabled if they are not in a repetition block.
+ # Implemented `RepetitionElement` interface on all elements in browsers which provide access to the DOM `Element` object; this also should improve performance since the repetition template's methods no longer need to be copied onto each instance. Hopefully this functionality, including a universal application of the `RepetitionElement`, will be possible in MSIE by means of behaviors. See [http://code.google.com/p/repetitionmodel/issues/detail?id=2 issue #2].
+ # Exceptions are thrown if repetition template methods are called on non-repetition template elements, and when the `refNode` argument to `addRepetitionBlock[ByIndex]` is not a DOM node.
+ # Worked on implementing the RepetitionEvent interface. See [http://code.google.com/p/repetitionmodel/issues/detail?id=1 issue #1].
+ # Fixed the dispatching of the `moved` event.
+ # Changed the order of operations in the `removeRepetitionBlock` algorithm so that the `removed` event is fired before the `added` event when the minimum number of blocks (`repeatMin`) is passed.
+ # Fixed `addRepetitionBlock[ByIndex]` which when passed `refNode`, would insert a block before `refNode` and not after as mandated by the spec.
+ # Fixed the cloning algorithm so that when new repetition block is added, the event handler attributes which are set on and within the repetition template are successfully cloned onto each block (this was not working in MSIE).
+ # An issue arose in Internet Explorer with its substitute for `DOMContentLoaded`, which when called initializes the repetition model before `onload` as required by the specification. The issue was this: when there are no external files to load, this substitute for `DOMContentLoaded` may unfortunately be erroneously fired after the document's onload handler. This problem was resolved when `document.write` was removed from the implementation of the hack, and replaced with `document.createElement` and `element.appendNode`. However, another issue arose regarding this `DOMContentLoaded` substitute: sometimes cssQuery does not find all of the repetition templates when called therein. This issue was also satisfactory resolved (pending a better solution utilize MSIE's behaviors, see [http://code.google.com/p/repetitionmodel/issues/detail?id=3 issue #3] and [http://code.google.com/p/repetitionmodel/issues/detail?id=4 issue #4]).
+ # Aligned the implementation with the specification where `addRepetitionBlock` returns `null` if `maxRepeat` is met.
+ # Removed the need in MSIE for the `removed`/`move-up`/`move-down` button constructors to be called more than once (the `_initialized` property was being cloned).
+ # Changed first argument for `onadd`, `onremove`, and `onmove` event handlers from single repetition block element to a regular `event` object constructed via `document.createEvent/createEventObject`.
+ # Fixed problem where `add` buttons were not being disabled when `repeatStart` was equal to `repeatMax` on page load; this happened because `addRepetitionBlock` was being called before the `add` buttons were constructed. Created a `__updateAddButtons` method to go along with the `__updateMoveButtons`.
+ # Changed the argument of `document.createEvent` from "UIEvent" to "UIEvents".
+
+==0.7.3 (2006-11-03)==
+ * _Initial public release._
+ * External path changes in repetition-model-wrapper.js.
+ * Disabled firing of events within the MSIE event model: fireEvent('onadd') throws an exception.
+ * Added code for firing moved events.
+ * Various fixes and improvements to example 1.
+
+==0.7.2 (2006-09-13)==
+ * _Internal stable release._
