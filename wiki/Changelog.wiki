@@ -1,25 +1,20 @@
 #summary Log of changes to the implementation.
 #labels Featured
 
-==0.5 (initial release)==
- *  data attribute for select and form elements
- * Extensions to the input element
-   * input types: datetime, datetime-local, date, month, week, time, number, range, email, and url
-   * min, max, and step attributes
- * Ranges for all form controls besides file input
- * Precision: step attribute
- * The maxlength attribute applies to text, password, url, and email input types, and textarea elements. In particular, it does not apply to the date-related, time-related, and numeric control types.
- * For the text, password, email, and url types of the input element, and for the textarea element, the pattern attribute specifies a pattern that the control value must match.
- * Form controls can have the required attribute specified, to indicate that the user must enter a value into the form control before submitting the form.
- * Any form control (except hidden and output controls) can have an autofocus attribute specified.
- * The repetition model for repeating form controls
- * Form validation
- * Successful form controls
+==0.5 (2007-08-14)==
+_Initial release_
+ * `data` attribute for `select` and `form` elements
+ * Extensions to the `input` element
+   * input types: `datetime`, `datetime-local`, `date`, `month`, `week`, `time`, `number`, `range`, `email`, and `url`
+   * `min`, `max`, and `step` attributes (not yet implemented for `file` inputs)
+   * `pattern` attribute
+ * The `maxlength` attribute for `textarea` elements.
+ * The `required` and `autofocus` attributes
+ * The repetition model for repeating form controls and the repetition interfaces (incorporated from the existing repetition model [http://code.google.com/p/repetitionmodel/ implementation])
+ * Form validation model
  * Fetching data from external resources
    * Filling select elements
    * Seeding a form with initial values
- * Validation APIs
- * Repetition interfaces
 
 =Repetition Model=
 The following log refers to releases of the standalone repetition model [http://code.google.com/p/repetitionmodel/ implementation] which has been incorporated into this Web Forms 2.0 project.
