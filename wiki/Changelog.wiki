@@ -3,18 +3,15 @@
 
 ==0.5 (2007-08-14)==
 _Initial release_
- * `data` attribute for `select` and `form` elements
  * Extensions to the `input` element
-   * input types: `datetime`, `datetime-local`, `date`, `month`, `week`, `time`, `number`, `range`, `email`, and `url`
-   * `min`, `max`, and `step` attributes (not yet implemented for `file` inputs)
-   * `pattern` attribute
+   * New types: `datetime`, `datetime-local`, `date`, `month`, `week`, `time`, `number`, `range`, `email`, and `url` (widgets not yet created for new controls)
+   * The `min`, `max`, and `step` attributes (not yet implemented for `file` inputs)
+   * The `pattern` attribute
  * The `maxlength` attribute for `textarea` elements.
  * The `required` and `autofocus` attributes
  * The repetition model for repeating form controls and the repetition interfaces (incorporated from the existing repetition model [http://code.google.com/p/repetitionmodel/ implementation])
  * Form validation model
- * Fetching data from external resources
-   * Filling select elements
-   * Seeding a form with initial values
+ * Fetching data from external resources: the `data` attribute for `select` and `form` elements
 
 =Repetition Model=
 The following log refers to releases of the standalone repetition model [http://code.google.com/p/repetitionmodel/ implementation] which has been incorporated into this Web Forms 2.0 project.
