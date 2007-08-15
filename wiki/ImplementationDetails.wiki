@@ -183,7 +183,7 @@ interface RepetitionElement {
 ===7.13. Repetition interfaces===
 _The repetition interfaces are implemented without the use of bindings, getters, and setters._ For this reason, the implementation is not completely valid. Developers using this implementation should:
  # Treat all `readonly` properties as such.
- # Eliminate the setting DOM properties to which this specification assigns side-effects (i.e., `repeatitionType`).
+ # Eliminate the setting DOM properties to which this specification assigns side-effects (i.e., `repetitionType`).
  # Choose to only set DOM properties (e.g., `repetitionIndex`) when a corresponding HTML attribute (e.g., `repeat`) is also available.
  # If dynamically creating new add, remove, or move buttons, call the appropriate function below after it has been inserted into the document (you may supply another element besides `document` if you only wish to update a portion of the document):
 {{{
@@ -206,5 +206,4 @@ The `repetitionBlocks` attribute is null (or *undefined*) unless the element is 
 The `repeatStart`, `repeatMin`, and `repeatMax` DOM properties do reflect the values of the `repeat-start`, `repeat-min`, and `repeat-max` HTML attributes respectively, but only when the repetition template is first initialized. Changing the HTML attributes thereafter will have *no affect* on the repetition template's behavior. Setting the DOM properties *does not affect* the relevant content (HTML) attributes.
 
 The `htmlTemplate` DOM attribute on the `HTMLButtonElement` (*not* `HTMLInputElement`) interface represents the repetition template that the template content attribute refers to. This DOM attribute is *not* readonly, but it should be treated as such.
-
 
