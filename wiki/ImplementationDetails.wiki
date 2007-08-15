@@ -1,10 +1,89 @@
 #summary Detailing the implementation of the Web Forms 2.0 specification.
 #labels Featured
 
-Since this implementation is intended solely for use in HTML or XHTML documents, parts which mention namespaces have been glossed over, as the specification recommends.
+=Overview=
 
-=Form Validation=
-_(TBA)_
+ * *Extensions to form control elements*
+    * The `form` and `select` elements are extended with `data` attributes for fetching values and options from external resources.
+    * Extensions to the `input` element
+          * Support for the new types `datetime`, `datetime-local`, `date`, `month`, `week`, `time`, `number`, `range`, `email`, and `url` (widgets not yet created for new controls; creating hooks into widgets from libraries such as Ext is the plan)
+          * Ranges: the `min` and `max` attributes
+          * Precision: the `step` attribute
+    * Extensions to existing attributes
+          * The `maxlength` attribute for `textarea` elements
+    * The `pattern` attribute
+    * The `required` attribute
+    * The `autofocus` attribute
+ * *The repetition model for repeating form controls*
+    * New form controls: `add`, `remove`, `move-up`, and `move-down` buttons, along with the `template` attribute for `add` buttons
+    * The `repeat-min` and `repeat-max` attributes
+    * Event interface for repetition events
+          * The `added`, `removed`,and `moved` events 
+          * _Extension:_ the `onadded`, `onremoved`, and `onmoved` HTML attributes and DOM properties
+    * The repetition model
+          * Addition
+          * Removal
+          * Movement of repetition blocks
+          * Initial repetition blocks
+ * *The forms event model:* Form validation
+    * The `invalid` event and the `oninvalid` HTML attribute and DOM property
+    * The `willValidate` DOM property
+    * The `validity` interface
+    * The `checkValidity` method on form controls and the `form` element
+    * The `setCustomValidity` method on form controls
+ * *Fetching data from external resources (with the `data` attribute)*
+    * Filling `select` elements
+    * Seeding a form with initial values 
+ * *Extensions to the HTML Level 2 DOM interfaces*
+    * Additions specific to the `HTMLFormElement` interface
+{{{
+boolean checkValidity();
+}}}
+    * Additions specific to the `HTMLSelectElement` interface
+{{{
+         attribute boolean         autofocus;
+readonly attribute boolean         willValidate;
+readonly attribute boolean         willValidate;
+readonly attribute DOMString       validationMessage;
+boolean            checkValidity();
+void               setCustomValidity(in DOMString error);
+}}}
+    * Changes to the `HTMLInputElement` interface
+{{{
+         attribute DOMString       min;
+         attribute DOMString       max;
+         attribute DOMString       step;
+         attribute DOMString       pattern;
+         attribute boolean         required;
+         attribute boolean         autofocus;
+readonly attribute boolean         willValidate;
+readonly attribute ValidityState   validity;
+readonly attribute DOMString       validationMessage;
+boolean            checkValidity();
+void               setCustomValidity(in DOMString error);
+}}}
+    * Additions specific to the `HTMLElement` interface
+{{{
+         attribute DOMString       pattern;
+         attribute boolean         required;
+         attribute boolean         autofocus;
+         attribute long            maxLength;
+readonly attribute boolean         willValidate;
+readonly attribute ValidityState   validity;
+readonly attribute DOMString       validationMessage;
+boolean            checkValidity();
+void               setCustomValidity(in DOMString error);
+}}}
+    * Additions specific to the `HTMLButtonElement` interface
+{{{
+readonly attribute RepetitionElement htmlTemplate;
+}}}
+    * The `RepetitionElement` interface
+    * The `ValidityState` interface
+    * Validation APIs
+    * Repetition interfaces 
+
+_Details to be added for non-repetition features._
 
 =Repetition Model=
 
@@ -127,4 +206,5 @@ The `repetitionBlocks` attribute is null (or *undefined*) unless the element is 
 The `repeatStart`, `repeatMin`, and `repeatMax` DOM properties do reflect the values of the `repeat-start`, `repeat-min`, and `repeat-max` HTML attributes respectively, but only when the repetition template is first initialized. Changing the HTML attributes thereafter will have *no affect* on the repetition template's behavior. Setting the DOM properties *does not affect* the relevant content (HTML) attributes.
 
 The `htmlTemplate` DOM attribute on the `HTMLButtonElement` (*not* `HTMLInputElement`) interface represents the repetition template that the template content attribute refers to. This DOM attribute is *not* readonly, but it should be treated as such.
+
 
