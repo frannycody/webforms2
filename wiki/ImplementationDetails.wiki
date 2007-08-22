@@ -115,7 +115,7 @@ repetitionTemplate.dispatchEvent(addEvt);
 }}}
 The `initRepetitionEventNS` method is not implemented as mentioned above.
 
-The specification's `added`, `removed`, and `moved` DOM Level 2 events are supplemented by the implementation of three events in the traditional model: `onadd`, `onremove`, and `onmove`, respectively (`onadded`, `onremoved`, and `onmoved` are deprecated). These three events may be registered either by setting HTML attributes or DOM properties of the same name on a repetition template. This implementation also makes these events available to browsers which implement the specification natively (i.e. Opera). Implementing the traditional event model for repetition events allows MSIE to handle the events fired by this implementation. The argument to handlers of these events is an `event` object, with the repetition block's DOM node set on this argument's `element` property (per the specification). Note that in previous versions of this implementation, the argument passed to these event handlers was not the object `event` but the DOM node `block` (which is now correctly located in `event.element`).
+The specification's `added`, `removed`, and `moved` DOM Level 2 events are supplemented by the implementation of three events in the traditional model: `onadded`, `onremoved`, and `onmoved` respectively (in reversal of the previous state, `onadd`, `onremove`, and `onmove` are now deprecated). These three events may be registered either by setting HTML attributes or DOM properties of the same name on a repetition template. This implementation also makes these events available to browsers which implement the specification natively (i.e. Opera). Implementing the traditional event model for repetition events allows MSIE to handle the events fired by this implementation. The argument to handlers of these events is an `event` object, with the repetition block's DOM node set on this argument's `element` property (per the specification). Note that in previous versions of this implementation, the argument passed to these event handlers was not the object `event` but the DOM node `block` (which is now correctly located in `event.element`).
 
 ==3.6. The repetition model==
 The repetition template is hidden via setting the element's `style` attribute to `display:none`.
@@ -132,17 +132,17 @@ Steps 9 and 10 of the algorithm are inserted after step 4; this has no bearing o
 
 While step 11 states that a delimited repetition template ID in every attribute on the new block must replaced by the new repetition block's index, this does not work in Firefox and MSIE in attributes which are not defined as CDATA (such as `border`, although it works to a limited extent in `style` when part of a URL).
 
-In addition to an `added` event being fired on the repetition template, if the repetition template has an `onadd` DOM property or HTML attribute which contains a function, it will also be called with an `event` argument. This is an [http://code.google.com/p/repetitionmodel/wiki/Extensions extension] to the specification which was included in order to allow Internet Explorer to handle repetition events.
+In addition to an `added` event being fired on the repetition template, if the repetition template has an `onadded` DOM property or HTML attribute which contains a function, it will also be called with an `event` argument. This is an [http://code.google.com/p/repetitionmodel/wiki/Extensions extension] to the specification which was included in order to allow Internet Explorer to handle repetition events.
 
 The automatic disabling of the `add` buttons *does* affect the DOM `disabled` attribute. It is *not* an intrinsic property of these buttons.
 
 ===3.6.2. Removal===
-In addition to a `removed` event being fired on the repetition template, if the repetition template has an `onremove` DOM property or HTML attribute which contains a function, it will also be called with an `event` argument. This is an [http://code.google.com/p/repetitionmodel/wiki/Extensions extension] to the specification which was included in order to allow Internet Explorer to handle repetition events.
+In addition to a `removed` event being fired on the repetition template, if the repetition template has an `onremoved` DOM property or HTML attribute which contains a function, it will also be called with an `event` argument. This is an [http://code.google.com/p/repetitionmodel/wiki/Extensions extension] to the specification which was included in order to allow Internet Explorer to handle repetition events.
 
 The automatic disabling of the `remove` buttons *does* affect the DOM `disabled` attribute. It is *not* an intrinsic property of these buttons.
 
 ===3.6.3. Movement of repetition blocks===
-In addition to a `moved` event being fired on the repetition template, if the repetition template has an `onmove` DOM property or HTML attribute which contains a function, it will also be called with an `event` argument. This is an [http://code.google.com/p/repetitionmodel/wiki/Extensions extension] to the specification which was included in order to allow Internet Explorer to handle repetition events.
+In addition to a `moved` event being fired on the repetition template, if the repetition template has an `onmoved` DOM property or HTML attribute which contains a function, it will also be called with an `event` argument. This is an [http://code.google.com/p/repetitionmodel/wiki/Extensions extension] to the specification which was included in order to allow Internet Explorer to handle repetition events.
 
 The automatic disabling of the `move-up` and `move-down` buttons *does* affect the DOM `disabled` attribute. It is *not* an intrinsic property of these buttons.
 
