@@ -4,7 +4,8 @@
 ==0.5.1 (upcoming)==
  * Corrected the capitalization of the DOM attribute "`maxLength`".
  * Add support for the `valueAsDate` and `valueAsNumber` DOM attributes, as well as the `stepUp` and `stepDown` methods.
- * Add support for the `pattern`, `required`, `autofocus`, `min`, `max`, and `step` DOM attributes.
+ * Add (and complete) support for DOM attributes, such as `repetitionType`, `pattern`, `required`, `autofocus`, `min`, `max`, and `step`. Add getters and setters for these when such is available so that setting these attributes may have side effects.
+ * Add Mutation Event handler for `DOMAttrModified` events so that the modification of content attributes (such as `repeat`) may result in side effects (such as constructing a new repetition template).
 
 ==0.5 (2007-08-14)==
 _Initial release_
