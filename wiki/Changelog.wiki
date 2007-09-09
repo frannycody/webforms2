@@ -1,7 +1,7 @@
 #summary Log of changes to the implementation.
 #labels Featured
 
-==0.5.1 (upcoming)==
+==0.5.5 (upcoming)==
  * Corrected the capitalization of the DOM attribute "`maxLength`".
  * Add support for the `valueAsDate` and `valueAsNumber` DOM attributes, as well as the `stepUp` and `stepDown` methods.
  * Add (and complete) support for DOM attributes, such as `repetitionType`, `pattern`, `required`, `autofocus`, `min`, `max`, and `step`. Add getters and setters for these when such is available so that setting these attributes may have side effects.
