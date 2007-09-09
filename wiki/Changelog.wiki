@@ -7,6 +7,7 @@
  * Add (and complete) support for DOM attributes, such as `repetitionType`, `pattern`, `required`, `autofocus`, `min`, `max`, and `step`. Add getters and setters for these when such is available so that setting these attributes may have side effects.
  * Add Mutation Event handler for `DOMAttrModified` events so that the modification of content attributes (such as `repeat`) may result in side effects (such as constructing a new repetition template).
  * Ensure that the DOM element prototypes are extended (instead of each individual instance) whenever possible (such as setting `HTMLFormElement.prototype.checkValidity`)
+ * Provide a Greasemonkey script that enables testing on [http://webforms2.testsuite.org/ webforns2.testsuite.org]
 
 ==0.5 (2007-08-14)==
 _Initial release_
