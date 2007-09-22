@@ -13,7 +13,7 @@
  * Corrected the capitalization of the DOM attribute "`maxLength`".
  * Fixed issue 6 by adding null argument to XMLHttpRequest.send() since Firefox requires it; issue was hidden by Firebug 1.0.
  * Fixed DOMException emulation for MSIE.
- * Changed the pack.pl so that Packer doesn't base64 encode the source into webforms2-p.js as configuring the server to gzip is a better solution. This file has the source code with all comments and whitespace removed, and all internal identifier names are replaced with short codes.
+ * Changed the pack.pl so that Packer doesn't base64 encode the source into webforms2-p.js as configuring the server to gzip is a better solution. This file has the source code with all comments and whitespace removed, and all internal identifiers are replaced with short codes.
  * Provided a Greasemonkey script that enables testing on [http://webforms2.testsuite.org/ webforms2.testsuite.org]
 
 ==0.5 (2007-08-14)==
@@ -134,5 +134,6 @@ style='background-image:url(image1.png)'
 
 ==0.7.2 (2006-09-13)==
  * _Internal stable release._
+ 
  
  
